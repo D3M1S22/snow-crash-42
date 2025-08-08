@@ -35,18 +35,21 @@ Gain access to the `flag09` user and retrieve the password for `level10`.
    So the binary appears to **encrypt input by shifting each character by its position index**.
 
 3. **Reverse Engineering the Encryption**  
-   Since the `token` is already encrypted, I wrote a Python script to reverse the transformation:
+   Since the `token` is already encrypted, I found a Python script to reverse the transformation:
    ```python
    import sys
-   token = sys.argv[1]
-   decrypted = ''.join([chr(ord(c)-i) for i, c in enumerate(token)])
-   print(decrypted)
+
+   hash = sys.argv[1]
+   rev_string = ""
+   for i in range(0, len(hash)):
+       rev_string = rev_string + chr(ord(hash[i]) - i)
+   print(rev_string)  
    ```
 
 4. **Running the Decryption**  
    I copied the script to the VM and ran:
    ```bash
-   python /tmp/decrypt.py $(cat token)
+   python /tmp/rev_string.py $(cat token)
    ```
    Output:
    ```
