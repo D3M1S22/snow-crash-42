@@ -6,9 +6,9 @@ Gain access to the `flag03` user and retrieve the password for `level04`.
 ## Steps Taken
 
 1. **Binary Analysis**  
-   Upon logging in as `flag03`, I discovered that I could execute a binary that internally called:
+   Upon logging in as `level03`, I discovered that I could execute a binary that internally called:
    ```bash
-   /bin/echo exploit me
+   level03
    ```
    I analyzed this binary using an online disassembler at [Dogbolt.org](https://dogbolt.org/) and confirmed that the program was making a direct system call to `echo`.
 
@@ -42,11 +42,11 @@ Gain access to the `flag03` user and retrieve the password for `level04`.
    ```
    This printed the flag (password for the next level):
    ```
-   0efd3b7caa7cbd2584913a536b1da494
+   qi0maab88jeaj46qoumi7maus
    ```
 
 ## Result
 Successfully retrieved the password for `level04`:  
 ```
-0efd3b7caa7cbd2584913a536b1da494
+qi0maab88jeaj46qoumi7maus
 ```
