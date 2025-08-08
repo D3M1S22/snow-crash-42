@@ -9,7 +9,7 @@ Gain access to the `flag06` user and retrieve the password for `level07`.
    Listing files in the home directory revealed:
    ```
    -rwsr-x---+ 1 flag06 level06 7503 Aug 30  2015 level06
-   -rwsr-x---  1 flag06 level06  356 Mar  5  2015 level06.php
+   -rwxr-x---  1 flag06 level06  356 Mar  5  2016 level06.php
    ```
    Both files are owned by `flag06` and accessible by `level06`, suggesting they may be exploitable.
 
