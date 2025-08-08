@@ -13,10 +13,12 @@ Gain access to the `flag07` user and retrieve the password for `level08`.
    This binary is owned by `flag07` and executable by `level07`.
 
 2. **Binary Analysis**  
-   I analyzed the binary using the online tool [Dogbolt.org](https://dogbolt.org/) and found that it runs a command like:
+   I analyzed the binary using the online tool [Dogbolt.org](https://dogbolt.org/) and found the following logic in the code:
+   ```c
+   pcVar1 = getenv("LOGNAME");
+   asprintf(&local_1c,"/bin/echo %s ",pcVar1);
    ```
-   /bin/echo $LOGNAME
-   ```
+   This means the program reads the `LOGNAME` environment variable and builds a shell command with it.
    This means it prints the value of the `LOGNAME` environment variable using `echo`.
 
 3. **Exploitation via Environment Variable**  
