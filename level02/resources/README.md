@@ -5,42 +5,62 @@ Gain access to the `flag02` user and retrieve the password for `level03`.
 
 ## Steps Taken
 
-1. **Login and File Discovery**  
-   After logging in as `flag02`, I ran:
+1. **Initial Discovery**  
+   After logging into the `flag02` account, I ran:
    ```bash
    ls
    ```
-   This revealed a `.pcap` file present in the home directory.
+   This revealed a `.pcap` file named `level02.pcap` in the home directory.
 
-2. **Understanding the `.pcap` File**  
-   A `.pcap` (Packet Capture) file stores network traffic data. It is commonly analyzed using tools like `tcpdump` or `Wireshark`.
+2. **Analyzing the PCAP File**  
+   I began analyzing the packet capture file to understand what kind of network activity it recorded.  
+   Using a combination of manual binary parsing and custom Python scripts, I examined Telnet-based traffic between the IPs `59.233.235.218` and `59.233.235.223`, where the server was listening on port `12121`.
 
-3. **Downloaded the File for Analysis**  
-   I transferred the `.pcap` file to my local machine for better inspection using:
+3. **Telnet Interaction**  
+   The PCAP contained a Telnet session negotiation, login prompt, and a failed login attempt. The server sent the prompt:
+   ```
+   wwwbugs login:
+   ```
+   The username entered by the client was reconstructed from multiple TCP segments and found to be:
+   ```
+   levelX
+   ```
+
+4. **Extracting the Password**  
+   After the username, the server prompted:
+   ```
+   Password:
+   ```
+   I analyzed the client-to-server payloads after this point, filtering out Telnet negotiation bytes and handling backspace characters.
+
+   The password was typed in several keystrokes, including some backspaces to correct mistakes. The corrected and final password entered was:
+   ```
+   ft_waNDReL0L
+   ```
+
+5. **Login as `flag02`**  
+   Using the `su` command:
    ```bash
-   scp flag02@machine:/home/flag02/capture.pcap .
+   su flag02
    ```
-
-4. **Analyzed the File with Wireshark**  
-   I opened the `.pcap` file in Wireshark and inspected the packets.
-   - I followed the TCP stream of an HTTP conversation.
-   - Inside one of the payloads, I found what appeared to be a chat message or transmission containing the password.
-
-5. **Extracted the Password**  
-   The password for `level03` was found in cleartext within the TCP stream:
+   I entered the password:
    ```
-   qi0maab88jeaj46qoumi7maus
+   ft_waNDReL0L
    ```
+   Successfully logging in.
 
-6. **Logged into `flag03`**  
-   I switched to the next user using:
+6. **Retrieve the Flag**  
+   Once logged in, I executed:
    ```bash
-   su flag03
+   getflag
    ```
-   And entered the extracted password.
+   This revealed the password for the next level:
+   ```
+   kooda2puivaav1idi4f57q8iq
+   ```
 
 ## Result
 Successfully retrieved the password for `level03`:  
 ```
-qi0maab88jeaj46qoumi7maus
+kooda2puivaav1idi4f57q8iq
 ```
